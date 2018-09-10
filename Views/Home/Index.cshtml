@@ -1,0 +1,73 @@
+﻿@model SmartEnergyWater.Models.ProductsModel
+@{
+    ViewBag.Title = "Home Page";
+}
+<div>
+    <div>&nbsp;</div>
+    <div style="position:center; margin-left:auto;margin-right:auto; align-content:center;background-color:darkgray;font-style:italic;font-size:large ">Welcome To Smart Mart</div>
+    <div><strong style="position:center; align-content:center;">Earn 10 % off on your Bill if you shop min 100$</strong></div>
+    <div>&nbsp;</div>
+    
+    <div style="position:center; align-content:center;background-color:darkgray; color:red; font-style:italic">
+        <marquee>
+            Don't Miss:  BOGO on Detergent!!
+            free Coke on Buy 3 Get 1 !!
+            free Paper Towels on  Buy 3 Get 1 !!
+        </marquee></div>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>*@
+
+
+@using (Html.BeginForm("Calculate", "Home", FormMethod.Post, new { name = "formAnswerScheme", id = "formAnswerScheme", defaultbutton = "btnsubmit" }))
+{
+
+<table cellspacing="10px" >
+    <tr><th style="padding:0 15px 0 15px;">Product Name   </th>
+    <th style="padding:0 15px 0 15px;">Cost of Item   </th>
+    <th style="padding:0 15px 0 15px;"></th>
+    <th style="padding:0 15px 0 15px;"> </th></tr>
+    @for (var i = 0; i < Model.productsList.Count; i++)
+    {
+    <tr>
+        <td>@Model.productsList[i].productName</td>
+        <td>@Model.productsList[i].cost</td>
+        @if(@Model.productsList[i].IsProductByWeight){
+        <td>@Html.TextBox("quantities", @Model.productsList[i].quantity,
+           new { placeholder = "Enter The Weight", @class = "form-input" , onkeydown = "return OnlyNumericWithDecimals(event);" })</td>
+
+        }
+        else{
+          
+        <td>@Html.TextBox("quantities", @Model.productsList[i].quantity, 
+           new {placeholder="Enter The Quantity", @class = "form-input", onkeydown = "return OnlyNumeric(event);" })</td>}
+    </tr>
+
+    }
+
+</table>
+    <button id="btnsubmit" class="btn btn-primary">Submit</button>
+    <button id="btncancel" class="btn btn-primary">Cancel</button>
+}
+</div>
+    <script type="text/javascript">
+       
+        function OnlyNumeric(evt) {
+            evt = (evt) ? evt : window.event;
+
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if ((charCode > 47 && charCode < 58) || (charCode > 95 && charCode < 106) || charCode==8) {
+                return true;
+            }
+            return false;
+        }
+
+        function OnlyNumericWithDecimals(evt) {
+            evt = (evt) ? evt : window.event;
+
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if ((charCode > 47 && charCode < 58) || (charCode > 95 && charCode < 106) || charCode == 8 || charCode==190) {
+                return true;
+            }
+            return false;
+        
+        }
+    </script>

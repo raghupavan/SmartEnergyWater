@@ -1,0 +1,42 @@
+﻿@model SmartEnergyWater.Models.ProductsModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<strong>Thanks For Shopping With Us!!</strong>
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>*@
+<div style="position:center;"></div>
+<div>&nbsp;</div>
+@using (Html.BeginForm("Index", "Home", FormMethod.Get, new { name = "formAnswerScheme", id = "formAnswerScheme", defaultbutton = "btnsubmit" }))
+{
+
+    <table cellspacing="10px">
+        <tr><th style="padding:0 15px 0 15px;">Product Name   </th><th style="padding:0 15px 0 15px;">Cost of Item   </th><th style="padding:0 15px 0 15px;"> Quantity   </th><th style="padding:0 15px 0 15px;">Discounted Items</th><th style="padding:0 15px 0 15px;">Savings</th><th>Price</th></tr>
+        @for (var i = 0; i < Model.productsList.Count; i++)
+        {
+            <tr>
+                <td>@Model.productsList[i].productName</td>
+                <td>@Model.productsList[i].cost</td>
+                <td>@Model.productsList[i].quantity</td>
+                <td>@Model.productsList[i].Discount</td>
+                <td>@Model.productsList[i].Savings</td>
+                <td>@Model.productsList[i].Total</td>
+            </tr>
+
+
+        }
+        <tr>
+            <td></td>
+            <td><strong>Total Savings:</strong></td>
+            <td><strong>@Html.DisplayFor(x => x.totalSavings)</strong></td>
+            <td></td>
+            <td><strong>TotalBill:</strong></td>
+            <td><strong>@Html.DisplayFor(x => x.totalBill)</strong></td>
+        </tr>
+
+    </table>
+    <button id="btnsubmit" class="btn btn-primary">Go To Home</button>
+
+}
+   
